@@ -21,4 +21,5 @@ Route::get('/', function () {
 Route::prefix('api')->group(function () {
 
 route::get('test', [TestController::class, 'index'])->name('index-test');
+route::post('kirim', [TestController::class, 'kirim'])->name('kirim-test');
 });
