@@ -11,10 +11,14 @@ class DashboardController extends Controller
 {
 
     public function index(){
-        $data = Players::all();
+        $player = Players::paginate(5);
+        $plants = Plants::paginate(5);
+        $inventory = Inventory::paginate(5);
 
         return view('pages.index')->with([
-            'data' => $data
+            'player' => $player,
+            'plants' => $plants,
+            'inventory' => $inventory,
         ]);
     }
     public function playerData(){

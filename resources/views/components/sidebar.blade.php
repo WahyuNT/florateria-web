@@ -11,11 +11,8 @@
         </div>
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-            <ul id="sidebarnav">
-                <li class="nav-small-cap">
-                    <i class='bx bxs-home-heart'></i>
-                    <span class="hide-menu">Home</span>
-                </li>
+            <ul id="sidebarnav" class="mt-2">
+             
                 <li class="sidebar-item mb-2">
                     <a class="sidebar-link {{ request()->is('index*') ? 'active' : '' }}" href="{{ route('index') }}"
                         aria-expanded="false">
@@ -47,7 +44,7 @@
                     <a class="sidebar-link {{ request()->is('card-data*') ? 'active' : '' }}"
                         href="{{ route('card-data') }}" aria-expanded="false">
                         <span>
-                            <i class='bx bxs-card'></i>
+                            <i class='bx bxs-hdd' ></i>
                         </span>
                         <span class="hide-menu">Card Inventory</span>
                     </a>
