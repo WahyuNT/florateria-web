@@ -1,0 +1,13 @@
+/register
+{
+    "name": "Wahyu",
+    "password": "123"
+}
+
+/login
+{
+    "name": "Wahyu",
+    "password": "123"
+}
+
+

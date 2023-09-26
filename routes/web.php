@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\api\InventoryController;
+use App\Http\Controllers\Api\PlayerController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +22,12 @@ Route::get('/', function () {
 
 Route::prefix('api')->group(function () {
 
-route::get('test', [TestController::class, 'index'])->name('index-test');
-route::post('kirim', [TestController::class, 'kirim'])->name('kirim-test');
+    //user
+route::post('register', [PlayerController::class, 'register'])->name('register');
+route::post('login', [PlayerController::class, 'login'])->name('login');
+
+//rfid
+route::post('store-plant', [InventoryController::class, 'storePlant'])->name('store-plant');
+route::post('redeem', [InventoryController::class, 'redeem'])->name('redeem');
+
 });

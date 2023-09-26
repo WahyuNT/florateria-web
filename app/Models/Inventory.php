@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Inventory extends Model
 {
     use HasFactory;
+    protected $table = 'inventory';
+    protected $fillable = [
+        'rfid','id_player','id_plant'
+    ];
 }
