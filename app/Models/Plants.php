@@ -12,4 +12,9 @@ class Plants extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function plants()
+    {
+        return $this->hasMany(Plants::class, 'id_plant');
+    }
 }

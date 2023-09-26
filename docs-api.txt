@@ -10,4 +10,14 @@
     "password": "123"
 }
 
+/store-plant
+{
+    "rfid": "34e234234dsfsdfs32332452sxfdsdfs",
+    "id_plant": "2"
+}
 
+/redeem
+{
+    "rfid": "34e234234dsfsdfs32332452sxfdsdfs"
+
+}

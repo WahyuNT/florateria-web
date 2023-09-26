@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\InventoryController;
 use App\Http\Controllers\Api\PlayerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,13 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+route::get('/', [DashboardController::class, 'index'])->name('index');
+route::get('player-data', [DashboardController::class, 'playerData'])->name('player-data');
+route::get('plants-data', [DashboardController::class, 'plantsData'])->name('plants-data');
+route::get('card-data', [DashboardController::class, 'cardData'])->name('card-data');
 
 Route::prefix('api')->group(function () {
 
-    //user
+//user
 route::post('register', [PlayerController::class, 'register'])->name('register');
 route::post('login', [PlayerController::class, 'login'])->name('login');
 

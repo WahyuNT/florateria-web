@@ -12,4 +12,9 @@ class Inventory extends Model
     protected $fillable = [
         'rfid','id_player','id_plant'
     ];
+
+    public function plants()
+    {
+        return $this->belongsTo(Plants::class, 'id_plant');
+    }
 }

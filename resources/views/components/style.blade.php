@@ -7,6 +7,6 @@
     <title>Florateria Web</title>
     <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>

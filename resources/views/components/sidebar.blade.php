@@ -13,15 +13,43 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
                 <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <i class='bx bxs-home-heart'></i>
                     <span class="hide-menu">Home</span>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link active" href="./index.html" aria-expanded="false">
+                <li class="sidebar-item mb-2">
+                    <a class="sidebar-link {{ request()->is('index*') ? 'active' : '' }}" href="{{ route('index') }}"
+                        aria-expanded="false">
                         <span>
-                            <i class="ti ti-layout-dashboard"></i>
+                            <i class='bx bxs-dashboard'></i>
                         </span>
                         <span class="hide-menu">Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item mb-2">
+                    <a class="sidebar-link {{ request()->is('player-data*') ? 'active' : '' }}"
+                        href="{{ route('player-data') }}" aria-expanded="false">
+                        <span>
+                            <i class='bx bxs-user'></i>
+                        </span>
+                        <span class="hide-menu">Player Data</span>
+                    </a>
+                </li>
+                <li class="sidebar-item mb-2">
+                    <a class="sidebar-link {{ request()->is('plants-data*') ? 'active' : '' }}"
+                        href="{{ route('plants-data') }}" aria-expanded="false">
+                        <span>
+                            <i class='bx bxs-leaf'></i>
+                        </span>
+                        <span class="hide-menu">Plants Data</span>
+                    </a>
+                </li>
+                <li class="sidebar-item mb-2">
+                    <a class="sidebar-link {{ request()->is('card-data*') ? 'active' : '' }}"
+                        href="{{ route('card-data') }}" aria-expanded="false">
+                        <span>
+                            <i class='bx bxs-card'></i>
+                        </span>
+                        <span class="hide-menu">Card Inventory</span>
                     </a>
                 </li>
 
