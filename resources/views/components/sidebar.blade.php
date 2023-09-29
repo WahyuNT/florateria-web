@@ -3,7 +3,7 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="./index.html" class="text-nowrap logo-img">
-                <img src="../assets/images/logos/dark-logo.svg" width="180" alt="" />
+                <h3><b> Florateria</b></h3>
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
@@ -12,7 +12,7 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav" class="mt-2">
-             
+
                 <li class="sidebar-item mb-2">
                     <a class="sidebar-link {{ request()->is('index*') ? 'active' : '' }}" href="{{ route('index') }}"
                         aria-expanded="false">
@@ -44,7 +44,7 @@
                     <a class="sidebar-link {{ request()->is('card-data*') ? 'active' : '' }}"
                         href="{{ route('card-data') }}" aria-expanded="false">
                         <span>
-                            <i class='bx bxs-hdd' ></i>
+                            <i class='bx bxs-hdd'></i>
                         </span>
                         <span class="hide-menu">Card Inventory</span>
                     </a>

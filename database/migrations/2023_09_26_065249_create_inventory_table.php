@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('inventory', function (Blueprint $table) {
             $table->id();
             $table->text('rfid');
+            $table->string('custom_name',255);
             $table->foreignId('id_player')->nullable()->constrained('players')->onDelete('set null');
             $table->foreignId('id_plant')->nullable()->constrained('plants')->onDelete('set null');
             $table->timestamps();

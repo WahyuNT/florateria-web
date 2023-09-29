@@ -33,5 +33,6 @@ route::post('login', [PlayerController::class, 'login'])->name('login');
 //rfid
 route::post('store-plant', [InventoryController::class, 'storePlant'])->name('store-plant');
 route::post('redeem', [InventoryController::class, 'redeem'])->name('redeem');
+route::get('plants', [InventoryController::class, 'plants'])->name('plants');
 
 });

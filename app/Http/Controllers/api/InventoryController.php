@@ -38,5 +38,14 @@ class InventoryController extends Controller
         return response()->json($redeem, 200);
     }
 
+    public function plants(){
+        $data = Inventory::join('plants', 'inventory.id_plant', '=', 'plants.id')
+        ->select('inventory.*', 'plants.icon','plants.name')
+        ->get();
+        ;
+        
+        return response()->json($data, 200);
+    }
+
  
 }
