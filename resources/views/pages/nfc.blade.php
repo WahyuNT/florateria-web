@@ -70,10 +70,13 @@
                 nfc.logger("Approach NFC Tag");
                 const ndef = new NDEFReader();
                 ndef.write(nfc.hTxt.value)
-                    .then(() => nfc.logger("Write OK"))
-                    .catch(err => nfc.logger("ERROR - " + err.message))
-                setRandomText();
+                    .then(() => {
+                        nfc.logger("Write OK");
+                        setRandomText();
+                    })
+                    .catch(err => nfc.logger("ERROR - " + err.message));
             },
+
 
             // (D) READ NFC TAG
             read: () => {
