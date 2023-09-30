@@ -2,8 +2,8 @@
 @section('content')
     <div id="demoNFC">
         <input readonly type="text" id="demoT" required>
-        <input type="button" id="demoW" value="Write" disabled onclick="nfc.write();">
-        <input type="button" id="demoR" value="Read" disabled onclick="nfc.read()">
+        <input type="button" id="demoW" value="Write" onclick="nfc.write();">
+        <input type="button" id="demoR" value="Read" onclick="nfc.read()">
     </div>
 
     <!-- (B) "CONSOLE MESSAGES" -->
