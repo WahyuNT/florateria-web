@@ -1,13 +1,36 @@
 @extends('layouts.master')
 @section('content')
     <div id="demoNFC">
-        <input type="text" id="demoT" value="Hello World" required>
+        <input readonly type="text" id="demoT" required>
         <input type="button" id="demoW" value="Write" disabled onclick="nfc.write();">
         <input type="button" id="demoR" value="Read" disabled onclick="nfc.read()">
     </div>
 
     <!-- (B) "CONSOLE MESSAGES" -->
     <div id="demoMSG"></div>
+
+
+    <script>
+        function generateRandomText(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let randomText = '';
+
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                randomText += characters.charAt(randomIndex);
+            }
+
+            return randomText;
+        }
+
+        function setRandomText() {
+            const demoInput = document.getElementById("demoT");
+            const randomText = generateRandomText(30);
+            demoInput.value = randomText;
+        }
+        // Event listener untuk menjalankan setRandomText() saat DOM telah dimuat
+        document.addEventListener("DOMContentLoaded", setRandomText);
+    </script>
 
     <script>
         var nfc = {
@@ -47,7 +70,8 @@
                 const ndef = new NDEFReader();
                 ndef.write(nfc.hTxt.value)
                     .then(() => nfc.logger("Write OK"))
-                    .catch(err => nfc.logger("ERROR - " + err.message));
+                setRandomText();
+                .catch(err => nfc.logger("ERROR - " + err.message));
             },
 
             // (D) READ NFC TAG
