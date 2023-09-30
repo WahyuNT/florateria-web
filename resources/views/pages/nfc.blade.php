@@ -1,84 +1,74 @@
 @extends('layouts.master')
 @section('content')
-    ---
-    feature_name: Web NFC
-    chrome_version: 89
-    feature_id: 6261030015467520
-    check_min_version: true
-    ---
+    <div id="demoNFC">
+        <input type="text" id="demoT" value="Hello World" required>
+        <input type="button" id="demoW" value="Write" disabled onclick="nfc.write();">
+        <input type="button" id="demoR" value="Read" disabled onclick="nfc.read()">
+    </div>
 
-    <h3>Background</h3>
-    <p>
-        Web NFC aims to provide sites the ability to read and write to NFC tags when
-        they are brought in close proximity to the user’s device (usually 5-10 cm, 2-4
-        inches). The current scope is limited to NDEF, a lightweight binary message
-        format. Low-level I/O operations (e.g. ISO-DEP, NFC-A/B, NFC-F) and Host-based
-        Card Emulation (HCE) are not supported within the current scope.
-    </p>
-
-    <button id="scanButton">Scan</button>
-    <button id="writeButton">Write</button>
-    <button id="makeReadOnlyButton">Make Read-Only</button>
-
-    {% include output_helper.html initial_output_content=initial_output_content %}
+    <!-- (B) "CONSOLE MESSAGES" -->
+    <div id="demoMSG"></div>
 
     <script>
-        log = ChromeSamples.log;
+        var nfc = {
+            // (A) INIT
+            hTxt: null, // html data to write
+            hWrite: null, // html write button
+            hRead: null, // html read button
+            hMsg: null, // html "console messages"
+            init: () => {
+                // (A1) GET HTML ELEMENTS
+                nfc.hTxt = document.getElementById("demoT"),
+                    nfc.hWrite = document.getElementById("demoW"),
+                    nfc.hRead = document.getElementById("demoR"),
+                    nfc.hMsg = document.getElementById("demoMSG");
 
-        if (!("NDEFReader" in window))
-            ChromeSamples.setStatus("Web NFC is not available. Use Chrome on Android.");
-    </script>
+                // (A2) FEATURE CHECK + GET PERMISSION
+                if ("NDEFReader" in window) {
+                    nfc.logger("Ready");
+                    nfc.hWrite.disabled = false;
+                    nfc.hRead.disabled = false;
+                    nfc.hReadOnly.disabled = false;
+                } else {
+                    nfc.logger("Web NFC is not supported on this browser.");
+                }
+            },
 
-    {% include js_snippet.html filename='index.js' %}
+            // (B) HELPER - DISPLAY LOG MESSAGE
+            logger: msg => {
+                let row = document.createElement("div");
+                row.innerHTML = msg;
+                nfc.hMsg.appendChild(row);
+            },
 
-
-    <script>
-        scanButton.addEventListener("click", async () => {
-            log("User clicked scan button");
-
-            try {
+            // (C) WRITE NFC TAG
+            write: () => {
+                nfc.logger("Approach NFC Tag");
                 const ndef = new NDEFReader();
-                await ndef.scan();
-                log("> Scan started");
+                ndef.write(nfc.hTxt.value)
+                    .then(() => nfc.logger("Write OK"))
+                    .catch(err => nfc.logger("ERROR - " + err.message));
+            },
 
-                ndef.addEventListener("readingerror", () => {
-                    log("Argh! Cannot read data from the NFC tag. Try another one?");
-                });
-
-                ndef.addEventListener("reading", ({
-                    message,
-                    serialNumber
-                }) => {
-                    log(`> Serial Number: ${serialNumber}`);
-                    log(`> Records: (${message.records.length})`);
-                });
-            } catch (error) {
-                log("Argh! " + error);
-            }
-        });
-
-        writeButton.addEventListener("click", async () => {
-            log("User clicked write button");
-
-            try {
+            // (D) READ NFC TAG
+            read: () => {
+                nfc.logger("Approach NFC Tag");
                 const ndef = new NDEFReader();
-                await ndef.write("Hello world!");
-                log("> Message written");
-            } catch (error) {
-                log("Argh! " + error);
+                ndef.scan()
+                    .then(() => {
+                        ndef.onreadingerror = err => nfc.logger("Read failed");
+                        ndef.onreading = evt => {
+                            const decoder = new TextDecoder();
+                            for (let record of evt.message.records) {
+                                nfc.logger("Record type: " + record.recordType);
+                                nfc.logger("Record encoding: " + record.encoding);
+                                nfc.logger("Record data: " + decoder.decode(record.data));
+                            }
+                        };
+                    })
+                    .catch(err => nfc.logger("Read error - " + err.message));
             }
-        });
-
-        makeReadOnlyButton.addEventListener("click", async () => {
-            log("User clicked make read-only button");
-
-            try {
-                const ndef = new NDEFReader();
-                await ndef.makeReadOnly();
-                log("> NFC tag has been made permanently read-only");
-            } catch (error) {
-                log("Argh! " + error);
-            }
-        });
+        };
+        window.onload = nfc.init;
     </script>
 @endsection
