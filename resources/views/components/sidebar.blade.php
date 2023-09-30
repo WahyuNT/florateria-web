@@ -49,6 +49,15 @@
                         <span class="hide-menu">Card Inventory</span>
                     </a>
                 </li>
+                <li class="sidebar-item mb-2">
+                    <a class="sidebar-link {{ request()->is('nfc*') ? 'active' : '' }}" href="{{ route('nfc') }}"
+                        aria-expanded="false">
+                        <span>
+                            <i class='bx bxs-hdd'></i>
+                        </span>
+                        <span class="hide-menu">NFC</span>
+                    </a>
+                </li>
 
             </ul>
 

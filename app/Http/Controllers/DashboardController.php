@@ -43,4 +43,9 @@ class DashboardController extends Controller
             'data' => $data
         ]);
     }
+    public function nfc(){
+    
+
+        return view('pages.nfc');
+    }
 }
