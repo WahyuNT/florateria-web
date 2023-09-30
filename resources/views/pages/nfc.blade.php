@@ -1,9 +1,10 @@
 @extends('layouts.master')
 @section('content')
+    <!-- (A) NFC TAG ACTIONS -->
     <div id="demoNFC">
-        <input readonly type="text" id="demoT" required>
-        <input type="button" id="demoW" value="Write" onclick="nfc.write();">
-        <input type="button" id="demoR" value="Read" onclick="nfc.read()">
+        <input type="text" id="demoT" value="Hello World" required>
+        <input type="button" id="demoW" value="Write" disabled onclick="nfc.write();">
+        <input type="button" id="demoR" value="Read" disabled onclick="nfc.read()">
     </div>
 
     <!-- (B) "CONSOLE MESSAGES" -->
@@ -70,8 +71,7 @@
                 const ndef = new NDEFReader();
                 ndef.write(nfc.hTxt.value)
                     .then(() => nfc.logger("Write OK"))
-                setRandomText();
-                .catch(err => nfc.logger("ERROR - " + err.message));
+                    .catch(err => nfc.logger("ERROR - " + err.message));
             },
 
             // (D) READ NFC TAG
