@@ -71,7 +71,8 @@
                 const ndef = new NDEFReader();
                 ndef.write(nfc.hTxt.value)
                     .then(() => nfc.logger("Write OK"))
-                    .catch(err => nfc.logger("ERROR - " + err.message));
+                    .catch(err => nfc.logger("ERROR - " + err.message))
+                setRandomText();
             },
 
             // (D) READ NFC TAG
