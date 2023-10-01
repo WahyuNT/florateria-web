@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\InventoryController;
+use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\PlayerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestController;

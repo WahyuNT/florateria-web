@@ -64,8 +64,8 @@
                                         onclick="nfc.write();">
                                 </div>
                             </div>
-                            <input type="text" name="rfid" id="demoT" value="Hello World" required>
-                            <input type="button" class="btn btn-success" id="demoW" value="Write" disabled
+                            <input type="text" name="rfid" id="demoT" hidden value="Hello World" required>
+                            <input type="button" class="btn btn-success" hidden id="demoW" value="Write" disabled
                                 onclick="writeAndSubmitForm()">
                         </div>
 
