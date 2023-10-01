@@ -103,23 +103,26 @@
         document.addEventListener("DOMContentLoaded", setRandomText);
     </script>
     <script>
-        function sendForm() {
-            const form = document.querySelector("form"); // Pilih formulir berdasarkan elemen pertama
-            const formData = new FormData(form); // Buat objek FormData dari formulir
+        function nfcWriteAndSubmit() {
+            // Simpan data yang akan dikirim dalam sebuah objek FormData
+            var formData = new FormData(document.getElementById("myForm"));
 
-            fetch(form.action, {
-                    method: "POST",
-                    body: formData,
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    // Tangani respons dari API di sini
-                    console.log(data);
-                })
-                .catch((error) => {
-                    // Tangani kesalahan jika terjadi
-                    console.error("Kesalahan:", error);
-                });
+            // Lakukan pengiriman form dengan AJAX
+            $.ajax({
+                type: "POST",
+                url: "{{ route('store-plant') }}", // Ganti dengan URL sesuai dengan rute Anda
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Tangani respons sukses di sini
+                    console.log("Form berhasil terkirim", response);
+                },
+                error: function(error) {
+                    // Tangani kesalahan di sini
+                    console.error("Terjadi kesalahan saat mengirim form", error);
+                }
+            });
         }
     </script>
 
@@ -164,7 +167,7 @@
                     .then(() => {
                         nfc.logger("Write OK");
                         setRandomText();
-                        sendForm();
+                        nfcWriteAndSubmit();
                     })
                     .catch(err => nfc.logger("ERROR - " + err.message));
             },
