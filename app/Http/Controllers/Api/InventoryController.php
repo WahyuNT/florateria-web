@@ -70,8 +70,15 @@ class InventoryController extends Controller
         return response()->json($data, 200);
     }
     public function findCard(Request $request){
+        $rfid = $request->rfid;
+        if ($request->rfid) {
+            $rfid = $request->rfid;
+            if (substr($request->rfid, 0, 2) === "en") {
+                $rfid = substr($rfid, 2); // Menghapus dua karakter pertama "en"
+            }
+        }
         
-        $data = Inventory::where('rfid',$request)->first();
+        $data = Inventory::where('rfid',$rfid)->first();
         
         
         return response()->json($data, 200);
