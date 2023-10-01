@@ -23,7 +23,7 @@ class InventoryController extends Controller
     }
 
     public function redeem(Request $request){
-        
+
         $rfid = null;
         if ($request->rfid) {
             $rfid = $request->rfid;
@@ -36,8 +36,14 @@ class InventoryController extends Controller
         if ($data) {
             $redeem = Inventory::find($data->id);
             $redeem->rfid = $data->rfid;
-            $redeem->id_player = $request->id_player;
-            $redeem->custom_name = $request->custom_name;
+            if ($request->id_player){
+
+                $redeem->id_player = $request->id_player;
+            }
+            if ($request->custom_name){
+
+                $redeem->custom_name = $request->custom_name;
+            }
             $redeem->id_plant= $data->id_plant;
             $redeem->save();
         }
