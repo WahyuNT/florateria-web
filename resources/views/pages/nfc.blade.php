@@ -1,14 +1,84 @@
 @extends('layouts.master')
 @section('content')
-    <!-- (A) NFC TAG ACTIONS -->
-    <div id="demoNFC">
-        <input type="text" id="demoT" value="Hello World" required>
-        <input type="button" id="demoW" value="Write" disabled onclick="nfc.write();">
-        <input type="button" id="demoR" value="Read" disabled onclick="nfc.read()">
-    </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Tambahkan Kartu
+    </button>
 
-    <!-- (B) "CONSOLE MESSAGES" -->
-    <div id="demoMSG"></div>
+
+    <div class="card mt-3">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">RFID</th>
+                    <th scope="col">Plant</th>
+                    <th scope="col">Player</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($data as $item)
+                    <tr>
+                        <th>{{ $loop->iteration }}</th>
+                        <td>{{ $item->rfid }}</td>
+                        <td>{{ $item->plants->name }}</td>
+                        @if ($item->id_player)
+                            <td>{{ $item->id_player }}</td>
+                        @else
+                            <td><span class="badge bg-danger rounded-3 fw-semibold">Belum di redeem</span></td>
+                        @endif
+                    </tr>
+                @empty
+                    <p class="text-center">Data not found!</p>
+                @endforelse
+
+
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route('store-plant') }}" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Kartu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- (A) NFC TAG ACTIONS -->
+                        <div id="demoNFC">
+                            <div class="d-flex justify-content-start">
+                                <div class="col me-3">
+
+                                    <select class="form-select" name="id_plant" aria-label="Default select example">
+                                        <option selected>Pilih jenis tanaman</option>
+                                        @foreach ($plants as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input type="button" class="btn btn-success" id="demoW" value="Write" disabled
+                                        onclick="nfc.write();">
+                                </div>
+                            </div>
+                            <input type="text" name="rfid" hidden id="demoT" value="Hello World" required>
+                            {{-- <input type="button" id="demoR" value="Read" disabled onclick="nfc.read()"> --}}
+                        </div>
+
+                        <!-- (B) "CONSOLE MESSAGES" -->
+                        <div id="demoMSG"></div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
     <script>
@@ -31,6 +101,26 @@
         }
         // Event listener untuk menjalankan setRandomText() saat DOM telah dimuat
         document.addEventListener("DOMContentLoaded", setRandomText);
+    </script>
+    <script>
+        function sendForm() {
+            const form = document.querySelector("form"); // Pilih formulir berdasarkan elemen pertama
+            const formData = new FormData(form); // Buat objek FormData dari formulir
+
+            fetch(form.action, {
+                    method: "POST",
+                    body: formData,
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    // Tangani respons dari API di sini
+                    console.log(data);
+                })
+                .catch((error) => {
+                    // Tangani kesalahan jika terjadi
+                    console.error("Kesalahan:", error);
+                });
+        }
     </script>
 
     <script>
@@ -68,6 +158,7 @@
             // (C) WRITE NFC TAG
             write: () => {
                 nfc.logger("Approach NFC Tag");
+                sendForm();
                 const ndef = new NDEFReader();
                 ndef.write(nfc.hTxt.value)
                     .then(() => {

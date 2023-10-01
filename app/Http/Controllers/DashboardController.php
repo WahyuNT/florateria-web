@@ -46,6 +46,12 @@ class DashboardController extends Controller
     public function nfc(){
     
 
-        return view('pages.nfc');
+        $data = Inventory::all();
+        $plants = Plants::all();
+
+        return view('pages.nfc')->with([
+            'data' => $data,
+            'plants' => $plants,
+        ]);
     }
 }
