@@ -24,7 +24,7 @@ class InventoryController extends Controller
 
     public function redeem(Request $request){
 
-        $rfid = null;
+        $rfid = $request->rfid;
         if ($request->rfid) {
             $rfid = $request->rfid;
             if (substr($request->rfid, 0, 2) === "en") {
