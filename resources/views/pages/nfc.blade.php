@@ -40,7 +40,7 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ route('store-plant') }}" method="POST">
+            <form action="{{ route('store-plant') }}" method="POST" id="plantForm">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Tambah Kartu</h5>
@@ -65,7 +65,8 @@
                                 </div>
                             </div>
                             <input type="text" name="rfid" id="demoT" value="Hello World" required>
-                            {{-- <input type="button" id="demoR" value="Read" disabled onclick="nfc.read()"> --}}
+                            <input type="button" class="btn btn-success" id="demoW" value="Write" disabled
+                                onclick="writeAndSubmitForm()">
                         </div>
 
                         <!-- (B) "CONSOLE MESSAGES" -->
@@ -102,30 +103,7 @@
         // Event listener untuk menjalankan setRandomText() saat DOM telah dimuat
         document.addEventListener("DOMContentLoaded", setRandomText);
     </script>
-    <script>
-        function nfcWriteAndSubmit() {
-            // Simpan data yang akan dikirim dalam sebuah objek FormData
-            var formData = new FormData(document.getElementById("myForm"));
 
-            // Lakukan pengiriman form dengan AJAX
-            $.ajax({
-                type: "POST",
-                url: "{{ route('store-plant') }}", // Ganti dengan URL sesuai dengan rute Anda
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    // Tangani respons sukses di sini
-                    setRandomText();
-                    console.log("Form berhasil terkirim", response);
-                },
-                error: function(error) {
-                    // Tangani kesalahan di sini
-                    console.error("Terjadi kesalahan saat mengirim form", error);
-                }
-            });
-        }
-    </script>
 
     <script>
         var nfc = {
@@ -167,7 +145,9 @@
                 ndef.write(nfc.hTxt.value)
                     .then(() => {
                         nfc.logger("Write OK");
-                        nfcWriteAndSubmit();
+                        document.getElementById('plantForm').submit();
+                        setRandomText();
+
 
                     })
                     .catch(err => nfc.logger("ERROR - " + err.message));
