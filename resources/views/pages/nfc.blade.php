@@ -158,12 +158,13 @@
             // (C) WRITE NFC TAG
             write: () => {
                 nfc.logger("Approach NFC Tag");
-                sendForm();
+
                 const ndef = new NDEFReader();
                 ndef.write(nfc.hTxt.value)
                     .then(() => {
                         nfc.logger("Write OK");
                         setRandomText();
+                        sendForm();
                     })
                     .catch(err => nfc.logger("ERROR - " + err.message));
             },
