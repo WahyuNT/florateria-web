@@ -17,4 +17,8 @@ class Inventory extends Model
     {
         return $this->belongsTo(Plants::class, 'id_plant');
     }
+    public function player()
+    {
+        return $this->belongsTo(Players::class, 'id_player');
+    }
 }

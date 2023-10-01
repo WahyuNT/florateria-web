@@ -23,7 +23,6 @@ route::get('/', [DashboardController::class, 'index'])->name('index');
 route::get('player-data', [DashboardController::class, 'playerData'])->name('player-data');
 route::get('plants-data', [DashboardController::class, 'plantsData'])->name('plants-data');
 route::get('card-data', [DashboardController::class, 'cardData'])->name('card-data');
-route::get('nfc', [DashboardController::class, 'nfc'])->name('nfc');
 
 Route::prefix('api')->group(function () {
 

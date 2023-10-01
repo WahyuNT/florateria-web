@@ -38,20 +38,12 @@ class DashboardController extends Controller
     }
     public function cardData(){
         $data = Inventory::all();
-
-        return view('pages.card')->with([
-            'data' => $data
-        ]);
-    }
-    public function nfc(){
-    
-
-        $data = Inventory::all();
         $plants = Plants::all();
 
-        return view('pages.nfc')->with([
+        return view('pages.card')->with([
             'data' => $data,
             'plants' => $plants,
         ]);
     }
+
 }

@@ -12,4 +12,9 @@ class Players extends Model
     protected $fillable = [
         'name','password','id_role'
     ];
+
+    public function player()
+    {
+        return $this->hasMany(Player::class, 'id_player');
+    }
 }

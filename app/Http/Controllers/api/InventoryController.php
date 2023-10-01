@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 use App\Models\Plants;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class InventoryController extends Controller
 {
@@ -17,7 +18,8 @@ class InventoryController extends Controller
        $post->save();
 
       
-       return response()->json(['message' => 'Berhasil ditambahkan'], 201);
+       return redirect()->back()->with('success', 'Berhasil Menambahkan');   
+
     }
 
     public function redeem(Request $request){
