@@ -51,6 +51,9 @@ class InventoryController extends Controller
         if (!$data) {
             return response()->json(['message' => 'Data not found'], 404);
         }
+        if (!$rfid) {
+            return response()->json(['message' => 'rfid kosong'], 404);
+        }
 
     
         return response()->json($redeem, 200);
