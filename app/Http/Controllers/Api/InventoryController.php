@@ -24,12 +24,21 @@ class InventoryController extends Controller
 
     public function redeem(Request $request){
         
-        $data = Inventory::where('rfid',$request->rfid)->first();
+        if ($request->rfid) {
+            $rfid = $request->rfid;
+            if (substr($request->rfid, 0, 2) === "en") {
+                $rfid = substr($rfid, 2); // Menghapus dua karakter pertama "en"
+            }
+        }
+        $data = Inventory::where('rfid',$rfid)->first();
+
         if ($data) {
             $redeem = Inventory::find($data->id);
             $redeem->rfid = $data->rfid;
-            $redeem->id_player = '1';
+            $redeem->id_player = $request->id_player;
+            $redeem->custom_name = $request->custom_name;
             $redeem->id_plant= $data->id_plant;
+            $redeem->save();
         }
 
         if (!$data) {
@@ -40,11 +49,13 @@ class InventoryController extends Controller
         return response()->json($redeem, 200);
     }
 
-    public function plants(){
+    public function plants(Request $request){
+        
         $data = Inventory::join('plants', 'inventory.id_plant', '=', 'plants.id')
         ->select('inventory.*', 'plants.icon','plants.name')
+        ->where('id_player', $request->id_player)
         ->get();
-        ;
+        
         
         return response()->json($data, 200);
     }
