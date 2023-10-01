@@ -34,5 +34,6 @@ route::post('login', [PlayerController::class, 'login'])->name('login');
 route::post('store-plant', [InventoryController::class, 'storePlant'])->name('store-plant');
 route::post('redeem', [InventoryController::class, 'redeem'])->name('redeem');
 route::get('plants', [InventoryController::class, 'plants'])->name('plants');
+route::get('find-card', [InventoryController::class, 'findCard'])->name('findCard');
 
 });
