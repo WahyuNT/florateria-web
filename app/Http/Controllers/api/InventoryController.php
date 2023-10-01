@@ -17,8 +17,8 @@ class InventoryController extends Controller
         $post->id_plant = $request->id_plant;
        $post->save();
 
-      
-       return redirect()->back()->with('success', 'Berhasil Menambahkan');   
+       
+       return redirect()->back()->with('success', 'Berhasil Menambahkan RFID');   
 
     }
 
