@@ -64,7 +64,7 @@
                                         onclick="nfc.write();">
                                 </div>
                             </div>
-                            <input type="text" name="rfid" hidden id="demoT" value="Hello World" required>
+                            <input type="text" name="rfid" id="demoT" value="Hello World" required>
                             {{-- <input type="button" id="demoR" value="Read" disabled onclick="nfc.read()"> --}}
                         </div>
 
@@ -116,6 +116,7 @@
                 contentType: false,
                 success: function(response) {
                     // Tangani respons sukses di sini
+                    setRandomText();
                     console.log("Form berhasil terkirim", response);
                 },
                 error: function(error) {
@@ -166,8 +167,8 @@
                 ndef.write(nfc.hTxt.value)
                     .then(() => {
                         nfc.logger("Write OK");
-                        setRandomText();
                         nfcWriteAndSubmit();
+
                     })
                     .catch(err => nfc.logger("ERROR - " + err.message));
             },
