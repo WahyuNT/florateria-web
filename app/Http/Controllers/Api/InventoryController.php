@@ -77,7 +77,10 @@ class InventoryController extends Controller
             }
         
         
-        $data = Inventory::where('rfid',$rfid)->first();
+        $data = Inventory::join('plants', 'inventory.id_plant', '=', 'plants.id')
+        ->select('inventory.*', 'plants.icon','plants.name')
+        ->where('rfid',$rfid)
+        ->first();
         
         
         return response()->json($data, 200);
