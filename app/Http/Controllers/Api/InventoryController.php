@@ -67,8 +67,6 @@ class InventoryController extends Controller
     public function findCard(Request $request){
         $rfid = $request->rfid;
 
-        
-        
         $data = Inventory::join('plants', 'inventory.id_plant', '=', 'plants.id')
         ->select('inventory.*', 'plants.icon','plants.name')
         ->where('rfid',$rfid)
